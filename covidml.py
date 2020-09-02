@@ -44,7 +44,7 @@ def home():
 	return render_template('home.html')'''
 @app.route("/")
 @app.route("/<name>")
-def page(name=None):
+def home(name=None):
     if name==None:
         name='tt'
     if name in c[0]:
