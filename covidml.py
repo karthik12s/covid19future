@@ -27,14 +27,14 @@ def date1(a):
     if a<184:
         st=str(a[0]-152)+'-Jun-20'
         return st
-    if a<214:
+    if a<215:
         st=str(a[0]-183)+'-Jul-20'
         return st
-    if a<244:
-        st=str(a[0]-213)+'-Aug-20'
+    if a<246:
+        st=str(a[0]-214)+'-Aug-20'
         return st
-    if a<274:
-        st=str(a[0]-233)+'-Sep-20'
+    if a<277:
+        st=str(a[0]-245)+'-Sep-20'
         return st
 '''@app.route("/home")
 @app.route("/")
@@ -87,4 +87,4 @@ li=['Afghanistan', 'Albania', 'Algeria', 'Angola', 'Antigua and Barbuda', 'Argen
 s_names=[ 'Andaman And Nicobar', 'Andhra Pradesh', 'Arunachal Pradesh','Assam', 'Bihar', 'Chandigarh', 'Chattisgarh', 'Daman & Diu', 'Delhi','Dardar and Nagar Haveli', 'Goa', 'Gujarath', 'Himachal Pradesh','Haryana', 'Jarkhand', 'Jammu And Kashmir', 'Karnataka', 'Kerala','Ladakh', 'Lakshwadeep', 'Maharashtra', 'Meghalaya', 'Manipur','Madhya Pradesh', 'Mizoram', 'Nagaland', 'Orissa', 'Punjab','Pondicherry', 'Rajasthan', 'Sikkim', 'Telangana', 'TamilNadu','Tripura', 'UttarPradesh', 'Uttarakand', 'WestBengal', 'India']
 s_keys={'an':'Andaman and Nicobar Islands', 'ap':'Andhra Pradesh', 'ar':'Arunachal Pradesh', 'as':'Assam', 'br':'Bihar', 'ch':'Chhattisgarh', 'ct':'Chandigarh', 'dd':'Daman and Diu', 'dl':'Delhi', 'dn':'Dadra and Nagar Haveli', 'ga':'Goa', 'gj':'Gujarat', 'hp':'Himachal Pradesh', 'hr':'Haryana', 'jh':'Jharkhand', 'jk':'Jammu and Kashmir', 'ka':'Karnataka', 'kl':'Kerala', 'la':'Ladakh', 'ld':'Lakshadweep', 'mh': 'Maharashtra', 'ml':'Meghalaya', 'mn':'Manipur', 'mp':'Madhya Pradesh', 'mz':'Mizoram', 'nl':'Nagaland', 'or':'Odisha', 'pb':'Punjab', 'py':'Puducherry', 'rj':'Rajasthan', 'sk':'Sikkim', 'tg':'Telangana', 'tn':'Tamil Nadu', 'tr':'Tripura','up':'Uttar Pradesh', 'ut':'Uttarakhand', 'wb':'West Bengal'}
 if __name__=='__main__':
-	app.run(debug=True)
+	app.run()
