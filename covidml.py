@@ -1,6 +1,6 @@
-from flask import Flask, redirect, url_for,session,request,render_template,session,flash
 import requests
 from sklearn import linear_model
+from flask import Flask, redirect, url_for,session,request,render_template,session,flash
 import numpy as np
 from sklearn.preprocessing import PolynomialFeatures
 wc=requests.get('https://api.covid19api.com/summary')
@@ -35,6 +35,9 @@ def date1(a):
         return st
     if a<277:
         st=str(a[0]-245)+'-Sep-20'
+        return st
+    if a<307:
+        st=str(a[0]-276)+'-Oct-20'
         return st
 '''@app.route("/home")
 @app.route("/")
