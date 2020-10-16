@@ -39,12 +39,7 @@ def date1(a):
     if a<307:
         st=str(a[0]-276)+'-Oct-20'
         return st
-'''@app.route("/home")
-@app.route("/")
-def home():
-	if "user" in session:
-		return render_template('home.html',n=session["user"])
-	return render_template('home.html')'''
+
 @app.route("/")
 @app.route("/<name>")
 def home(name=None):
@@ -82,7 +77,39 @@ def home(name=None):
     else:
         return redirect(url_for('home'))
 
+@app.route('/predictor')
+def pred():
+    l = []
+    for name in s_codes1:
+        # print(name)
+        if name in c[0]:
+                st=[]
+                day=[]
 
+                for i in range(len(c)):
+                    st.append(c[i][name])
+                    day.append(i+75)
+                day=(np.array(day)).reshape(-1,1)
+                x1=(np.arange(75,len(day)+90)).reshape(-1,1)
+                st=list(map(int,st))
+                for i in range(1,len(st)):
+                    st[i]=st[i]+st[i-1]
+                st=(np.array(st)).reshape(-1,1)
+                mo=PolynomialFeatures(degree=5)
+                new2=mo.fit_transform(day,st)
+                xtt=mo.transform(x1)
+                tt=linear_model.LinearRegression()
+                tt.fit(new2,st)
+                ytt=tt.predict(xtt)
+                for i in range(len(ytt)):
+                    ytt[i]=int(ytt[i])
+                    if name == 'an':
+                        l.append({"Date":date1(x1[i]),name:ytt[i][0]})
+                    else:
+                        l[i][name] = ytt[i][0]
+    return {"states_daily":l}
+
+s_codes1 = ['an', 'ap', 'ar', 'as', 'br', 'ch', 'ct', 'dd', 'dl', 'dn','ga', 'gj', 'hp', 'hr', 'jh', 'jk', 'ka', 'kl', 'la', 'ld', 'mh','ml', 'mn', 'mp', 'mz', 'nl', 'or', 'pb', 'py', 'rj', 'sk', 'tg', 'tn', 'tr', 'tt', 'un', 'up', 'ut', 'wb']
 stateDict={"an":"https://www.youngernation.com/wp-content/uploads/2017/12/Andaman.jpg","ap":"https://www.youngernation.com/wp-content/uploads/2017/12/Andhra-1.jpg","ar":"https://www.youngernation.com/wp-content/uploads/2017/12/Arunachal-1.jpg","as":"https://www.youngernation.com/wp-content/uploads/2017/12/Assam-1.jpg","br":"https://www.youngernation.com/wp-content/uploads/2017/12/Bihar-1.jpg","ch":"https://www.youngernation.com/wp-content/uploads/2017/12/Indian-Union-Territory-Chandigarh.jpg","ct":"https://www.youngernation.com/wp-content/uploads/2017/12/Chhattisgarh-1.jpg","dd":"https://www.youngernation.com/wp-content/uploads/2017/12/Daman-and-Diu.jpg",'dl':'https://cdn.sketchbubble.com/pub/media/catalog/product/optimized1/a/1/a1d5257e10517b286ca194ca176c63bafc47774022219aef1b2db50a81b07bd6/delhi-map-slide1.png',"dn":"https://www.youngernation.com/wp-content/uploads/2017/12/Dadra-and-Nagar-Haveli.jpg","ga":"https://www.youngernation.com/wp-content/uploads/2017/12/Goa-1.jpg","gj":"https://www.youngernation.com/wp-content/uploads/2017/12/Gujarat.jpg","hp":"https://www.youngernation.com/wp-content/uploads/2017/12/Himachal-1.jpg","hr":"https://www.youngernation.com/wp-content/uploads/2017/12/Haryana-1.jpg","jh":"https://www.youngernation.com/wp-content/uploads/2017/12/Jharkhand-1.jpg","jk":"https://thumbs.dreamstime.com/b/web-155417042.jpg","ka":"https://www.youngernation.com/wp-content/uploads/2017/12/Indian-State-Karnataka.jpg","kl":"https://www.youngernation.com/wp-content/uploads/2017/12/Kerala.jpg","la":"https://www.youngernation.com/wp-content/uploads/2017/12/Lakhadeep.jpg","ld":"https://thumbs.dreamstime.com/b/web-155417042.jpg","me":"https://www.youngernation.com/wp-content/uploads/2017/12/Meghalaya-1.jpg","mh":"https://www.youngernation.com/wp-content/uploads/2017/12/Indian-State-Maharashtra.jpg","mn":"https://www.youngernation.com/wp-content/uploads/2017/12/Manipur-1.jpg","mp":"https://www.youngernation.com/wp-content/uploads/2017/12/Indian-State-Madhya-Pradesh.jpg",'ml':'https://www.youngernation.com/wp-content/uploads/2017/12/Meghalaya-1.jpg',"mz":"https://www.youngernation.com/wp-content/uploads/2017/12/Mizoram-1.jpg","nl":"https://www.youngernation.com/wp-content/uploads/2017/12/Nagaland-1.jpg","or":"https://www.youngernation.com/wp-content/uploads/2017/12/Odisha.jpg","pb":"https://www.youngernation.com/wp-content/uploads/2017/12/Punjab-1.jpg","py":"https://www.youngernation.com/wp-content/uploads/2017/12/Puducherry.jpg","rj":"https://www.youngernation.com/wp-content/uploads/2017/12/Rajasthan.jpg","sk":"https://www.youngernation.com/wp-content/uploads/2017/12/Sikkim-1.jpg","tg":"https://www.youngernation.com/wp-content/uploads/2017/12/Telangana-1.jpg","tn":"https://www.youngernation.com/wp-content/uploads/2017/12/Indian-State-Tamil-Nadu.jpg","tr":"https://www.youngernation.com/wp-content/uploads/2017/12/Tripura-1.jpg",'tt':'https://fvmstatic.s3.amazonaws.com/maps/m/IN-EPS-02-4001.png',"up":"https://www.youngernation.com/wp-content/uploads/2017/12/Uttar-Pradesh.jpg","ut":"https://www.youngernation.com/wp-content/uploads/2017/12/Uttarakhand-1.jpg","wb":"https://www.youngernation.com/wp-content/uploads/2017/12/Indian-State-West-Bengal.jpg"}
 namesDict ={'an':'Andaman And Nicobar','ap': 'Andhra Pradesh','ar' :'Arunachal Pradesh','as'  : 'Assam','br' :'Bihar','ch': 'Chandigarh','ct' :'Chattisgarh','dd': 'Daman & Diu','dl' :'Delhi','dn' : 'Dardar and Nagar Haveli','ga': 'Goa','gj' :'Gujarath','hp' :'Himachal Pradesh','hr' : 'Haryana','jh' :'Jarkhand','jk': 'Jammu And Kashmir','ka': 'Karnataka','kl': 'Kerala','ld' : 'Ladakh','la': 'Lakshwadeep','mh': 'Maharashtra','me': 'Meghalaya','ml':'Meghalaya','mn': 'Manipur','mp' : 'Madhya Pradesh','mz': 'Mizoram','nl': 'Nagaland','or': 'Orissa','pb': 'Punjab','py' :'Pondicherry','rj': 'Rajasthan','sk': 'Sikkim','tg': 'Telangana','tn': 'TamilNadu','tt':'India','tr' :'Tripura','up' :'UttarPradesh','ut': 'Uttarakand','wb' :'WestBengal','tt': 'Total'}
 
