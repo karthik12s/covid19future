@@ -36,8 +36,11 @@ def date1(a):
     if a<277:
         st=str(a[0]-245)+'-Sep-20'
         return st
-    if a<307:
+    if a<308:
         st=str(a[0]-276)+'-Oct-20'
+        return st
+    if a<338:
+        st=str(a[0]-309)+'-Nov-20'
         return st
 
 @app.route("/")
