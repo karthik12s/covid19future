@@ -2,17 +2,16 @@ import requests
 from sklearn import linear_model
 from flask import Flask, redirect, url_for,session,request,render_template,session,flash
 import numpy as np
+import pandas as pd
 from sklearn.preprocessing import PolynomialFeatures
 wc=requests.get('https://api.covid19api.com/summary')
 wc=wc.json()
 ind=wc['Countries'][76]
-s_d=(requests.get('https://api.covidindiatracker.com/state_data.json')).json()
+s_d=pd.read_csv('https://api.covid19india.org/csv/latest/state_wise.csv')
 app=Flask(__name__)
 app.secret_key='abc'
-a=requests.get('https://api.covid19india.org/states_daily.json')
-a=a.json()
-c=a['states_daily']
-c=c[::3]
+a=pd.read_csv('https://api.covid19india.org/csv/latest/state_wise_daily.csv')
+c=a[::3]
 def date1(a):
     st=''
     if a<92:
@@ -42,17 +41,30 @@ def date1(a):
     if a<338:
         st=str(a[0]-307)+'-Nov-20'
         return st
+    if a<368:
+        st=str(a[0]-337)+'-Dec-20'
+        return st
+    if a<399:
+        st=str(a[0]-367)+'-Jan-21'
+        return st
+    if a<430:
+        st=str(a[0]-398)+'-Feb-21'
+        return st
+    if a<468:
+        st=str(a[0]-429)+'-Mar-21'
+        return st
+
 
 @app.route("/")
 @app.route("/<name>")
 def home(name=None):
     if name==None:
         name='tt'
-    if name in c[0]:
-        st=[]
+    if name in namesDict:
+        st=list(c[name.upper()])
         day=[]
-        for i in range(len(c)):
-            st.append(c[i][name])
+        for i in range(len(st)):
+            # st.append(c[i][name])
             day.append(i+75)
         day=(np.array(day)).reshape(-1,1)
         x1=(np.arange(75,len(day)+90)).reshape(-1,1)
@@ -72,10 +84,13 @@ def home(name=None):
             wc=[ind['TotalConfirmed'],ind['TotalDeaths'],ind['TotalRecovered'],ind['NewConfirmed']]
         else:
             for i in range(len(s_d)):
-                if s_d[i]['state']==s_keys[name]:
-                    wc=[s_d[i]['confirmed'],s_d[i]['deaths'],s_d[i]['recovered'],st[len(c)-1][0]-st[len(c)-2][0]]
+                if s_d['State'][i]==s_keys[name]:
+                    wc=[s_d['Confirmed'][i],s_d['Deaths'][i],s_d['Recovered'][i],st[len(c)-1][0]-st[len(c)-2][0]]
 
         #ytt=list(map(int,ytt))
+        for i in range(len(ytt)):
+            if ytt[i]<0:
+                ytt[i]=0
         return render_template('new.html',da=list(map(date1,x1)),y=ytt,r=len(day),or1=st,l=len(x1),d1=x1,labels=list(map(date1,x1))[::15],values=ytt[::15],max=max(ytt),values1=st[::15],im=stateDict[name],sn=namesDict[name],wc=wc,p=ytt[len(c)])
     else:
         return redirect(url_for('home'))
