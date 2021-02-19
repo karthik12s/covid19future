@@ -140,7 +140,7 @@
   <th>Original</th>
   <th>predicted</th>
 </tr>
-    {%for i in range(r-10,r-1)%}
+    {%for i in range(r-10,r)%}
     <tr>
       <td>{{ da[i+1]}}</td>
       <td>{{or1[i][0]}}</td>
@@ -149,7 +149,7 @@
     {%endfor%}
     {% for i in range(r,l-1)%}
     <tr>
-      <td>{{da[i]}}</td>
+      <td>{{da[i+1]}}</td>
       <td>--</td>
       <td>{{y[i][0]}}</td>
     </tr>
