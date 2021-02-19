@@ -113,7 +113,7 @@ def pred():
                 for i in range(1,len(st)):
                     st[i]=st[i]+st[i-1]
                 st=(np.array(st)).reshape(-1,1)
-                mo=PolynomialFeatures(degree=5)
+                mo=PolynomialFeatures(degree=6)
                 new2=mo.fit_transform(day,st)
                 xtt=mo.transform(x1)
                 tt=linear_model.LinearRegression()
