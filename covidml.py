@@ -100,12 +100,13 @@ def pred():
     l = []
     for name in s_codes1:
         # print(name)
-        if name in c[0]:
+        if name in namesDict:
                 st=[]
                 day=[]
 
-                for i in range(len(c)):
-                    st.append(c[i][name])
+                for i in range(len(c[name.upper()])):
+                    c1=list(c[name.upper()])
+                    st.append(c1[i])
                     day.append(i+75)
                 day=(np.array(day)).reshape(-1,1)
                 x1=(np.arange(75,len(day)+90)).reshape(-1,1)
