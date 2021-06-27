@@ -56,8 +56,17 @@ def date1(a):
     if a<488:
         st = str(a[0]-457)+'-April-21'
         return st
-    if a<520:
+    if a<519:
         st = str(a[0]-487)+'-May-21'
+        return st
+    if a<551:
+        st = str(a[0]-518)+'-June-21'
+        return st
+    if a<581:
+        st = str(a[0]-550)+'-July-21'
+        return st
+    if a<612:
+        st = str(a[0]-580)+'-August-21'
         return st
 
 @app.route("/")
