@@ -60,10 +60,10 @@ def date1(a):
         st = str(a[0]-487)+'-May-21'
         return st
     if a<551:
-        st = str(a[0]-518)+'-June-21'
+        st = str(a[0]-519)+'-June-21'
         return st
     if a<581:
-        st = str(a[0]-550)+'-July-21'
+        st = str(a[0]-548)+'-July-21'
         return st
     if a<612:
         st = str(a[0]-580)+'-August-21'
